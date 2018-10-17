@@ -334,6 +334,7 @@ namespace AutoSalvage.World.Generator
         public Hex4UidGenerator(Random random)
         {
             increment = Primes[random.Next(Primes.Length)];
+            value = (ushort)(random.Next() & ushort.MaxValue);
         }
 
         public string Next()

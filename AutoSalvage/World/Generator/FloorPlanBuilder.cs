@@ -13,5 +13,13 @@
         {
             FloorPlan = floorPlan;
         }
+
+        public void AddRoom(Room room)
+        {
+            room.FloorPlan = FloorPlan;
+            if (FloorPlan.rooms.Count == 0)
+                FloorPlan.FirstRoom = room;
+            FloorPlan.rooms.Add(room.Id, room);
+        }
     }
 }

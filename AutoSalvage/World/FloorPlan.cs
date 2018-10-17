@@ -8,6 +8,8 @@ namespace AutoSalvage.World
         public IReadOnlyDictionary<string, Door> Doors { get; }
         internal Dictionary<string, Door> doors = new Dictionary<string, Door>();
 
+        public Room FirstRoom { get; internal set; }
+
         public string Id { get; internal set; }
 
         public IReadOnlyDictionary<string, Room> Rooms { get; }
