@@ -8,12 +8,22 @@ namespace AutoSalvage.World.Generator
     internal class GridFloorPlanGenerator : IFloorPlanGenerator
     {
         private const int DoorLength = 2;
+        private const int RoomCount = 10;
         private const int WallThickness = 1;
+
+        private static readonly Size[] RoomDeltas =
+        {
+            new Size(0, -RoomSize.Height - WallThickness),
+            new Size(0,  RoomSize.Height + WallThickness),
+            new Size(-RoomSize.Width  - WallThickness, 0),
+            new Size( RoomSize.Width  + WallThickness, 0),
+        };
+        private static readonly Size RoomSize = new Size(6, 6);
 
         private readonly Random random;
         private readonly IUidGenerator<string> uidGenerator;
 
-        private FloorPlanBuilder floorPlanBuilder;
+        private FloorPlanBuilder floorPlan;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="GridFloorPlanGenerator"/> class.
@@ -33,14 +43,14 @@ namespace AutoSalvage.World.Generator
         /// <remarks>Not thread-safe.</remarks>
         public FloorPlan CreateFloorPlan()
         {
-            floorPlanBuilder = new FloorPlanBuilder(uidGenerator.Next());
+            floorPlan = new FloorPlanBuilder(uidGenerator.Next());
 
             CreateFirstRoom();
 
-            for (int i = 0; i < 10; i++)
+            while (floorPlan.AllRooms.Count < RoomCount)
                 CreateRoom();
 
-            return floorPlanBuilder.FloorPlan;
+            return floorPlan.FloorPlan;
         }
 
         /// <summary>
@@ -50,8 +60,8 @@ namespace AutoSalvage.World.Generator
         private Room CreateFirstRoom()
         {
             var room = new Room(uidGenerator.Next());
-            room.Bounds = new Rectangle(0, 0, 6, 6);
-            floorPlanBuilder.AddRoom(room);
+            room.Bounds = new Rectangle(new Point(0, 0), RoomSize);
+            floorPlan.AddRoom(room);
             return room;
         }
 
@@ -62,7 +72,7 @@ namespace AutoSalvage.World.Generator
         private Room CreateRoom()
         {
             var room = new Room(uidGenerator.Next());
-            room.Bounds = bounds;
+            room.Bounds = RandomlySelectRoomBounds();
 
             var neighbouringRooms = GetNeighbouringRooms(room);
             foreach (var neighbouringRoom in neighbouringRooms)
@@ -70,8 +80,26 @@ namespace AutoSalvage.World.Generator
                 var door = CreateDoor(room, neighbouringRoom);
             }
 
-            floorPlanBuilder.AddRoom(room);
+            floorPlan.AddRoom(room);
             return room;
+        }
+
+        /// <summary>
+        /// Randomly returns the bounds of a room that can exist adjacent to an existing room.
+        /// </summary>
+        /// <returns>Randomly selected bounds for a new room.</returns>
+        private Rectangle RandomlySelectRoomBounds()
+        {
+            var locations = floorPlan.AllRooms
+                .Select(room => room.Bounds.Location)
+                .SelectMany(location => RoomDeltas
+                    .Select(delta => location + delta)
+                )
+                .Distinct()
+                .Except(floorPlan.AllRooms.Select(room => room.Bounds.Location))
+                .ToList();
+
+            return new Rectangle(GetRandom(locations), RoomSize);
         }
 
         /// <summary>
@@ -89,7 +117,7 @@ namespace AutoSalvage.World.Generator
             bounds.Width += Margin * 2;
             bounds.Height += Margin * 2;
 
-            return floorPlanBuilder.AllRooms.Where(r => r != room && r.Bounds.IntersectsWith(bounds));
+            return floorPlan.AllRooms.Where(r => r != room && r.Bounds.IntersectsWith(bounds));
         }
 
         /// <summary>
@@ -118,7 +146,7 @@ namespace AutoSalvage.World.Generator
 
             var door = new Door(uidGenerator.Next());
             door.Bounds = bounds;
-            floorPlanBuilder.AddDoor(door, room1, room2);
+            floorPlan.AddDoor(door, room1, room2);
             return door;
         }
 
@@ -164,6 +192,19 @@ namespace AutoSalvage.World.Generator
             bounds.Height = roomB.Bounds.Top - bounds.Y;
 
             return bounds;
+        }
+
+        /// <summary>
+        /// Removes and returns a random item from the collection.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the collection.</typeparam>
+        /// <param name="items">The items from which to choose a random item.</param>
+        /// <returns>The randomly chosen item.</returns>
+        private T PopRandom<T>(List<T> items)
+        {
+            var result = GetRandom(items);
+            items.Remove(result);
+            return result;
         }
 
         /// <summary>

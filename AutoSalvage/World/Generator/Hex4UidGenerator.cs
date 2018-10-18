@@ -2,8 +2,14 @@
 
 namespace AutoSalvage.World.Generator
 {
+    /// <summary>
+    /// Generates unique identifiers consisting of four hexadecimal digits.
+    /// </summary>
     internal class Hex4UidGenerator : IUidGenerator<string>
     {
+        /// <summary>
+        /// A list of all prime numbers between 13 and 16 bits long.
+        /// </summary>
         private static readonly ushort[] Primes = {
              2053,  2063,  2069,  2081,  2083,  2087,  2089,  2099,  2111,  2113, 
              2129,  2131,  2137,  2141,  2143,  2153,  2161,  2179,  2203,  2207, 
@@ -328,15 +334,25 @@ namespace AutoSalvage.World.Generator
             32717, 32719, 32749};
 
         private readonly ushort increment;
+        private readonly ushort initial;
 
         private ushort value = 0;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="Hex4UidGenerator"/> class.
+        /// </summary>
+        /// <param name="random">An initialised <see cref="Random"/> used to seed this <see cref="Hex4UidGenerator"/>.</param>
         public Hex4UidGenerator(Random random)
         {
             increment = Primes[random.Next(Primes.Length)];
-            value = (ushort)(random.Next() & ushort.MaxValue);
+            initial = (ushort)(random.Next() & ushort.MaxValue);
+            value = initial;
         }
 
+        /// <summary>
+        /// Gets the next unique identifier.
+        /// </summary>
+        /// <returns>The next unique identifier.</returns>
         public string Next()
         {
             unchecked
