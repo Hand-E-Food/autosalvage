@@ -6,9 +6,6 @@ namespace AutoSalvage.World
 {
     public class Door
     {
-        public const int NormalLength = 2;
-        public const int NormalThickness = 1;
-
         public Rectangle Bounds { get; internal set; }
 
         public IReadOnlyList<DoorFace> Faces { get; }

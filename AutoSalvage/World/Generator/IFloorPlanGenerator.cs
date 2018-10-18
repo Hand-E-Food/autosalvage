@@ -2,6 +2,6 @@
 {
     internal interface IFloorPlanGenerator
     {
-        FloorPlan Generate();
+        FloorPlan CreateFloorPlan();
     }
 }
