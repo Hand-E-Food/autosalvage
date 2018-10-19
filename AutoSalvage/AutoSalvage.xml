@@ -207,7 +207,7 @@
             <param name="room1">The first room.</param>
             <param name="room2">The second room.</param>
             <returns>The area directly between the two rooms.</returns>
-            <exception cref="T:System.ArgumentException">The two rooms overlap or have no orthoginal alignment.</exception>
+            <exception cref="T:System.ArgumentException">The two rooms overlap.</exception>
         </member>
         <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
             <summary>

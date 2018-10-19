@@ -76,6 +76,7 @@ namespace AutoSalvage.World.Generator
         {
             var room = new Room(uidGenerator.Next());
             room.Bounds = RandomlySelectRoomBounds();
+            floorPlan.AddRoom(room);
 
             var neighbouringRooms = GetNeighbouringRooms(room);
             foreach (var neighbouringRoom in neighbouringRooms)
@@ -83,7 +84,6 @@ namespace AutoSalvage.World.Generator
                 var door = CreateDoor(room, neighbouringRoom);
             }
 
-            floorPlan.AddRoom(room);
             return room;
         }
 
@@ -158,41 +158,39 @@ namespace AutoSalvage.World.Generator
         /// </summary>
         /// <param name="room1">The first room.</param>
         /// <param name="room2">The second room.</param>
-        /// <returns>The area directly between the two rooms.</returns>
-        /// <exception cref="ArgumentException">The two rooms overlap or have no orthoginal alignment.</exception>
+        /// <returns>The area directly between the two rooms.  If the rooms are not 
+        /// aligned horizontally or vertically, returns a <see cref="Rectangle"/> with a
+        /// <see cref="Rectangle.Size"/> of <see cref="Size.Empty"/>.</returns>
+        /// <exception cref="ArgumentException">The two rooms overlap.</exception>
         private Rectangle CalculatePotentialDoorBounds(Room room1, Room room2)
         {
-            if (room1.Bounds.IntersectsWith(room2.Bounds))
-                throw new ArgumentException("The two rooms overlap.");
+            var bounds1 = room1.Bounds;
+            var bounds2 = room2.Bounds;
 
-            Rectangle bounds = Rectangle.Empty;
-            Room roomA, roomB;
+            var bounds = Rectangle.Empty;
+            bounds.X      = Math.Max(bounds1.Left  , bounds2.Left  );
+            bounds.Y      = Math.Max(bounds1.Top   , bounds2.Top   );
+            bounds.Width  = Math.Min(bounds1.Right , bounds2.Right ) - bounds.X;
+            bounds.Height = Math.Min(bounds1.Bottom, bounds2.Bottom) - bounds.Y;
 
-            if (room1.Bounds.Right < room2.Bounds.Left)
-            {
-                roomA = room1;
-                roomB = room2;
-            }
-            else
-            {
-                roomA = room2;
-                roomB = room1;
-            }
-            bounds.X = roomA.Bounds.Right + 1;
-            bounds.Width = roomB.Bounds.Left - bounds.X;
+            if (bounds.Width > 0 && bounds.Height > 0)
+                throw new ArgumentException("The rooms overlap.");
 
-            if (room1.Bounds.Top < room2.Bounds.Top)
+            if (bounds.Width < 0 && bounds.Height < 0)
             {
-                roomA = room1;
-                roomB = room2;
+                bounds.Width = 0;
+                bounds.Height = 0;
             }
-            else
+            else if (bounds.Width < 0)
             {
-                roomA = room2;
-                roomB = room1;
+                bounds.X += bounds.Width;
+                bounds.Width = -bounds.Width;
             }
-            bounds.Y = roomA.Bounds.Bottom + 1;
-            bounds.Height = roomB.Bounds.Top - bounds.Y;
+            else if (bounds.Height < 0)
+            {
+                bounds.Y += bounds.Height;
+                bounds.Height = -bounds.Height;
+            }
 
             return bounds;
         }
