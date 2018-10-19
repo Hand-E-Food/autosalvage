@@ -5,7 +5,7 @@ namespace AutoSalvage.World.Generator
     /// <summary>
     /// Generates unique identifiers consisting of four hexadecimal digits.
     /// </summary>
-    internal class Hex4UidGenerator : IUidGenerator<string>
+    public class Hex4UidGenerator : IUidGenerator<string>
     {
         /// <summary>
         /// A list of all prime numbers between 13 and 16 bits long.

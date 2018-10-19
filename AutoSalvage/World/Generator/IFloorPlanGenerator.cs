@@ -1,11 +1,14 @@
 ﻿namespace AutoSalvage.World.Generator
 {
-    internal interface IFloorPlanGenerator
+    /// <summary>
+    /// A class that creates <see cref="FloorPlan"/>s.
+    /// </summary>
+    public interface IFloorPlanGenerator
     {
         /// <summary>
-        /// Creates an entire floor plan.
+        /// Creates an entire <see cref="FloorPlan"/>.
         /// </summary>
-        /// <returns>The floor plan.</returns>
+        /// <returns>The <see cref="FloorPlan"/>.</returns>
         /// <remarks>Not thread-safe.</remarks>
         FloorPlan CreateFloorPlan();
     }

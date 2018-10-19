@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoSalvage</name>
+    </assembly>
+    <members>
+        <member name="T:AutoSalvage.DrawingExtensions">
+            <summary>
+            Provides convenience methods for working with <see cref="N:System.Drawing"/> classes.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.DrawingExtensions.ToRectangleF(System.Drawing.Rectangle)">
+            <summary>
+            Converts a <see cref="T:System.Drawing.Rectangle"/> to a <see cref="T:System.Drawing.RectangleF"/>.
+            </summary>
+            <param name="rect">The <see cref="T:System.Drawing.Rectangle"/> to convert.</param>
+            <returns>A <see cref="T:System.Drawing.RectangleF"/> with the same dimensions as the <see cref="T:System.Drawing.Rectangle"/>.</returns>
+        </member>
+        <member name="M:AutoSalvage.DrawingExtensions.Transform(System.Drawing.RectangleF,System.Drawing.SizeF,System.Single)">
+            <summary>
+            Transforms the <see cref="T:System.Drawing.RectangleF"/> with the specified translation and scale.
+            </summary>
+            <param name="rect">The <see cref="T:System.Drawing.RectangleF"/> to transform.</param>
+            <param name="translation">The lateral translation to apply to the <paramref name="rect"/>.</param>
+            <param name="scale">The scale to magnify the <paramref name="rect"/>.</param>
+            <returns>The transformed <see cref="T:System.Drawing.RectangleF"/>.</returns>
+        </member>
+        <member name="T:AutoSalvage.World.Door">
+            <summary>
+            A door between two rooms.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Door.Bounds">
+            <summary>
+            This <see cref="T:AutoSalvage.World.Door"/>'s location and size.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Door.Faces">
+            <summary>
+            This <see cref="T:AutoSalvage.World.Door"/>'s two faces, defining the rooms they join.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Door.FloorPlan">
+            <summary>
+            The <see cref="P:AutoSalvage.World.Door.FloorPlan"/> this <see cref="T:AutoSalvage.World.Door"/> exists on.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Door.Id">
+            <summary>
+            This <see cref="T:AutoSalvage.World.Door"/>'s unique identifier.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Door.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.Door"/> class.
+            </summary>
+            <param name="id">The <see cref="T:AutoSalvage.World.Door"/>'s unique identifier.</param>
+        </member>
+        <member name="T:AutoSalvage.World.DoorFace">
+            <summary>
+            One side of a <see cref="P:AutoSalvage.World.DoorFace.Door"/>, facing a <see cref="P:AutoSalvage.World.DoorFace.Room"/>.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.DoorFace.Door">
+            <summary>
+            The <see cref="P:AutoSalvage.World.DoorFace.Door"/> this <see cref="T:AutoSalvage.World.DoorFace"/> is part of.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.DoorFace.OtherFace">
+            <summary>
+            The <see cref="T:AutoSalvage.World.DoorFace"/> on the other side of the <see cref="P:AutoSalvage.World.DoorFace.Door"/> this <see cref="T:AutoSalvage.World.DoorFace"/> is part of.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.DoorFace.Room">
+            <summary>
+            The <see cref="P:AutoSalvage.World.DoorFace.Room"/> this <see cref="T:AutoSalvage.World.DoorFace"/> faces.
+            </summary>
+        </member>
+        <member name="T:AutoSalvage.World.FloorPlan">
+            <summary>
+            An entire network of <see cref="T:AutoSalvage.World.Room"/>s and <see cref="T:AutoSalvage.World.Door"/>s.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.FloorPlan.Doors">
+            <summary>
+            This <see cref="T:AutoSalvage.World.FloorPlan"/>'s <see cref="T:AutoSalvage.World.Door"/>s.  The key is the <see cref="P:AutoSalvage.World.Door.Id"/> value.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.FloorPlan.FirstRoom">
+            <summary>
+            The <see cref="T:AutoSalvage.World.Room"/> where the player starts.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.FloorPlan.Id">
+            <summary>
+            This <see cref="T:AutoSalvage.World.FloorPlan"/>'s unique identifier.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.FloorPlan.Rooms">
+            <summary>
+            This <see cref="T:AutoSalvage.World.FloorPlan"/>'s <see cref="T:AutoSalvage.World.Room"/>s.  The key is the <see cref="P:AutoSalvage.World.Door.Id"/> value.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.FloorPlan.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.FloorPlan"/> class.
+            </summary>
+            <param name="id">The <see cref="T:AutoSalvage.World.FloorPlan"/>'s unique identifier.</param>
+        </member>
+        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.AllDoors">
+            <summary>
+            All doors in the floor plan.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.AllRooms">
+            <summary>
+            All rooms in the floor plan.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.FloorPlan">
+            <summary>
+            The floor plan being built.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.#ctor(System.String)">
+            <summary>
+            Initialises a enw instance of the <see cref="T:AutoSalvage.World.Generator.FloorPlanBuilder"/> class, creating a floor plan with the specified <paramref name="id"/>.
+            </summary>
+            <param name="id">The new floor plan's id.</param>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.#ctor(AutoSalvage.World.FloorPlan)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.FloorPlanBuilder"/> class to build upon the specified <see cref="P:AutoSalvage.World.Generator.FloorPlanBuilder.FloorPlan"/>.
+            </summary>
+            <param name="floorPlan">The floor plan to build upon.</param>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.AddDoor(AutoSalvage.World.Door,AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Adds a door joining two rooms.
+            </summary>
+            <param name="door">The door to add.</param>
+            <param name="room1">The first room adjoining the door.</param>
+            <param name="room2">The second room adjoining the door.</param>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.AddRoom(AutoSalvage.World.Room)">
+            <summary>
+            Adds a room.
+            </summary>
+            <param name="room">The room to add.</param>
+        </member>
+        <member name="T:AutoSalvage.World.Generator.GridFloorPlanGenerator">
+            <summary>
+            Creates a <see cref="T:AutoSalvage.World.FloorPlan"/> in an aligned grid layout.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.#ctor(System.Random,AutoSalvage.World.Generator.IUidGenerator{System.String})">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.GridFloorPlanGenerator"/> class.
+            </summary>
+            <param name="random">An initialised random number generator.  If null, a default <see cref="T:System.Random"/> is created.</param>
+            <param name="uidGenerator">The generator for floor plan, room and door ids.</param>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateFloorPlan">
+            <summary>
+            Creates an entire floor plan.
+            </summary>
+            <returns>The floor plan.</returns>
+            <remarks>Not thread-safe.</remarks>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateFirstRoom">
+            <summary>
+            Creates the first room of the floor plan.
+            </summary>
+            <returns>The room.</returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateRoom">
+            <summary>
+            Creates another room for the floor plan.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.RandomlySelectRoomBounds">
+            <summary>
+            Randomly returns the bounds of a room that can exist adjacent to an existing room.
+            </summary>
+            <returns>Randomly selected bounds for a new room.</returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.GetNeighbouringRooms(AutoSalvage.World.Room)">
+            <summary>
+            Gets all rooms that have only a wall between them and the specified room.
+            </summary>
+            <param name="room">The room to find the neighbours of.</param>
+            <returns>The rooms neighbouring the specified <paramref name="room"/>.</returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateDoor(AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Creates a door joining the two rooms.
+            </summary>
+            <param name="room1">The first room.</param>
+            <param name="room2">The second room.</param>
+            <returns>The door joining the two rooms.  Null if a door cannot be placed between these rooms.</returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CalculatePotentialDoorBounds(AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Returns the area directly between the two rooms.
+            </summary>
+            <param name="room1">The first room.</param>
+            <param name="room2">The second room.</param>
+            <returns>The area directly between the two rooms.</returns>
+            <exception cref="T:System.ArgumentException">The two rooms overlap or have no orthoginal alignment.</exception>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Removes and returns a random item from the collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="items">The items from which to choose a random item.</param>
+            <returns>The randomly chosen item.</returns>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.GetRandom``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Returns a random item from the collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="items">The items from which to choose a random item.</param>
+            <returns>The randomly chosen item.</returns>
+        </member>
+        <member name="T:AutoSalvage.World.Generator.Hex4UidGenerator">
+            <summary>
+            Generates unique identifiers consisting of four hexadecimal digits.
+            </summary>
+        </member>
+        <member name="F:AutoSalvage.World.Generator.Hex4UidGenerator.Primes">
+            <summary>
+            A list of all prime numbers between 13 and 16 bits long.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.Hex4UidGenerator.#ctor(System.Random)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.Hex4UidGenerator"/> class.
+            </summary>
+            <param name="random">An initialised <see cref="T:System.Random"/> used to seed this <see cref="T:AutoSalvage.World.Generator.Hex4UidGenerator"/>.</param>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.Hex4UidGenerator.Next">
+            <summary>
+            Gets the next unique identifier.
+            </summary>
+            <returns>The next unique identifier.</returns>
+        </member>
+        <member name="T:AutoSalvage.World.Generator.IFloorPlanGenerator">
+            <summary>
+            A class that creates <see cref="T:AutoSalvage.World.FloorPlan"/>s.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.IFloorPlanGenerator.CreateFloorPlan">
+            <summary>
+            Creates an entire <see cref="T:AutoSalvage.World.FloorPlan"/>.
+            </summary>
+            <returns>The <see cref="T:AutoSalvage.World.FloorPlan"/>.</returns>
+            <remarks>Not thread-safe.</remarks>
+        </member>
+        <member name="T:AutoSalvage.World.Generator.IUidGenerator`1">
+            <summary>
+            Produces unique identifiers.
+            </summary>
+            <typeparam name="T">The type of the identifiers.</typeparam>
+        </member>
+        <member name="M:AutoSalvage.World.Generator.IUidGenerator`1.Next">
+            <summary>
+            Returns the next unique identifier.
+            </summary>
+            <returns>The next unique identifier.</returns>
+        </member>
+        <member name="T:AutoSalvage.World.Room">
+            <summary>
+            A room.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Room.Bounds">
+            <summary>
+            This <see cref="T:AutoSalvage.World.Room"/>'s location and size.  Location coordinates may be negative.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Room.Doors">
+            <summary>
+            The <see cref="T:AutoSalvage.World.DoorFace"/>s adjoining this <see cref="T:AutoSalvage.World.Room"/>.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Room.FloorPlan">
+            <summary>
+            The <see cref="P:AutoSalvage.World.Room.FloorPlan"/> this <see cref="T:AutoSalvage.World.Room"/> exists on.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.World.Room.Id">
+            <summary>
+            This <see cref="T:AutoSalvage.World.Room"/>'s unique identifier.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.World.Room.#ctor(System.String)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.World.Room"/> class.
+            </summary>
+            <param name="id">The <see cref="T:AutoSalvage.World.Room"/>'s unique identifier.</param>
+        </member>
+    </members>
+</doc>

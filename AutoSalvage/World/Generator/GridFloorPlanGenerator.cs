@@ -5,12 +5,16 @@ using System.Linq;
 
 namespace AutoSalvage.World.Generator
 {
-    internal class GridFloorPlanGenerator : IFloorPlanGenerator
+    /// <summary>
+    /// Creates a <see cref="FloorPlan"/> in an aligned grid layout.
+    /// </summary>
+    public class GridFloorPlanGenerator : IFloorPlanGenerator
     {
         private const int DoorLength = 2;
         private const int RoomCount = 10;
         private const int WallThickness = 1;
 
+        private static readonly Size RoomSize = new Size(6, 6);
         private static readonly Size[] RoomDeltas =
         {
             new Size(0, -RoomSize.Height - WallThickness),
@@ -18,7 +22,6 @@ namespace AutoSalvage.World.Generator
             new Size(-RoomSize.Width  - WallThickness, 0),
             new Size( RoomSize.Width  + WallThickness, 0),
         };
-        private static readonly Size RoomSize = new Size(6, 6);
 
         private readonly Random random;
         private readonly IUidGenerator<string> uidGenerator;
@@ -60,7 +63,7 @@ namespace AutoSalvage.World.Generator
         private Room CreateFirstRoom()
         {
             var room = new Room(uidGenerator.Next());
-            room.Bounds = new Rectangle(new Point(0, 0), RoomSize);
+            room.Bounds = new Rectangle(new Point(RoomSize.Width / 2, RoomSize.Height / 2), RoomSize);
             floorPlan.AddRoom(room);
             return room;
         }
