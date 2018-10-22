@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoSalvage.World.Generator
+namespace AutoSalvage.Generator
 {
     /// <summary>
     /// Generates unique identifiers consisting of four hexadecimal digits.

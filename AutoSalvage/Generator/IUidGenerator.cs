@@ -1,4 +1,4 @@
-﻿namespace AutoSalvage.World.Generator
+﻿namespace AutoSalvage.Generator
 {
     /// <summary>
     /// Produces unique identifiers.

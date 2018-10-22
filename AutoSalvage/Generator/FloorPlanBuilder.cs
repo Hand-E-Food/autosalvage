@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AutoSalvage.World;
+using System.Collections.Generic;
 
-namespace AutoSalvage.World.Generator
+namespace AutoSalvage.Generator
 {
     internal class FloorPlanBuilder
     {

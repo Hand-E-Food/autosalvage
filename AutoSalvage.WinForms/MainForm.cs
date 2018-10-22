@@ -1,4 +1,4 @@
-﻿using AutoSalvage.World.Generator;
+﻿using AutoSalvage.Generator;
 using System;
 using System.Windows.Forms;
 

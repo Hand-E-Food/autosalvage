@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AutoSalvage.World;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace AutoSalvage.World.Generator
+namespace AutoSalvage.Generator
 {
     /// <summary>
     /// Creates a <see cref="FloorPlan"/> in an aligned grid layout.
