@@ -16,14 +16,288 @@
             <param name="rect">The <see cref="T:System.Drawing.Rectangle"/> to convert.</param>
             <returns>A <see cref="T:System.Drawing.RectangleF"/> with the same dimensions as the <see cref="T:System.Drawing.Rectangle"/>.</returns>
         </member>
+        <member name="M:AutoSalvage.DrawingExtensions.Transform(System.Drawing.PointF,System.Drawing.SizeF,System.Single)">
+            <summary>
+            Transforms this <see cref="T:System.Drawing.PointF"/> with the specified translation and scale.
+            </summary>
+            <param name="point">The <see cref="T:System.Drawing.PointF"/> to transform.</param>
+            <param name="translation">The lateral translation to apply to the <paramref name="point"/>.</param>
+            <param name="scale">The scale to magnify the <paramref name="point"/>.</param>
+            <returns>The transformed <see cref="T:System.Drawing.PointF"/>.</returns>
+        </member>
+        <member name="M:AutoSalvage.DrawingExtensions.Transform(System.Drawing.PointF[],System.Drawing.SizeF,System.Single)">
+            <summary>
+            Transforms this array of <see cref="T:System.Drawing.PointF"/> structures with the specified translation and scale.
+            </summary>
+            <param name="points">The array of <see cref="T:System.Drawing.PointF"/> structures to transform.</param>
+            <param name="translation">The lateral translation to apply to the <paramref name="points"/>.</param>
+            <param name="scale">The scale to magnify the <paramref name="points"/>.</param>
+            <returns>The transformed array of <see cref="T:System.Drawing.PointF"/> structures.</returns>
+        </member>
         <member name="M:AutoSalvage.DrawingExtensions.Transform(System.Drawing.RectangleF,System.Drawing.SizeF,System.Single)">
             <summary>
-            Transforms the <see cref="T:System.Drawing.RectangleF"/> with the specified translation and scale.
+            Transforms this <see cref="T:System.Drawing.RectangleF"/> with the specified translation and scale.
             </summary>
             <param name="rect">The <see cref="T:System.Drawing.RectangleF"/> to transform.</param>
             <param name="translation">The lateral translation to apply to the <paramref name="rect"/>.</param>
             <param name="scale">The scale to magnify the <paramref name="rect"/>.</param>
             <returns>The transformed <see cref="T:System.Drawing.RectangleF"/>.</returns>
+        </member>
+        <member name="M:AutoSalvage.DrawingExtensions.Transform(System.Drawing.SizeF,System.Single)">
+            <summary>
+            Transforms this <see cref="T:System.Drawing.SizeF"/> with the specified scale.
+            </summary>
+            <param name="size">The <see cref="T:System.Drawing.SizeF"/> to transform.</param>
+            <param name="scale">The scale to magnify the <paramref name="size"/>.</param>
+            <returns>The transformed <see cref="T:System.Drawing.SizeF"/>.</returns>
+        </member>
+        <member name="T:AutoSalvage.Entities.Entity">
+            <summary>
+            Any object in a world.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.Entity.Bound">
+            <summary>
+            This <see cref="T:AutoSalvage.Entities.Entity"/>'s footprint.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.Entity.IsObstruction">
+            <summary>
+            True if this <see cref="T:AutoSalvage.Entities.Entity"/> obstructs the movement of another <see cref="T:AutoSalvage.Entities.Entity"/>.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.Entity.Name">
+            <summary>
+            This <see cref="T:AutoSalvage.Entities.Entity"/>'s display name.
+            </summary>
+        </member>
+        <member name="T:AutoSalvage.Entities.IDamagable">
+            <summary>
+            An <see cref="T:AutoSalvage.Entities.Entity"/> that can be damaged.
+            </summary>
+        </member>
+        <member name="E:AutoSalvage.Entities.IDamagable.Destroyed">
+            <summary>
+            Triggered when this <see cref="T:AutoSalvage.Entities.Entity"/> is destroyed.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.IDamagable.Health">
+            <summary>
+            The <see cref="T:AutoSalvage.Entities.Entity"/>'s <see cref="P:AutoSalvage.Entities.IDamagable.Health"/>.
+            </summary>
+        </member>
+        <member name="E:AutoSalvage.Entities.IDamagable.HealthChanged">
+            <summary>
+            Triggered when this <see cref="T:AutoSalvage.Entities.Entity"/>'s <see cref="P:AutoSalvage.Entities.IDamagable.Health"/> has changed.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.IDamagable.MaximumHealth">
+            <summary>
+            This <see cref="T:AutoSalvage.Entities.Entity"/>'s maximum <see cref="P:AutoSalvage.Entities.IDamagable.Health"/>.
+            </summary>
+        </member>
+        <member name="T:AutoSalvage.Entities.ISalvagable">
+            <summary>
+            An <see cref="T:AutoSalvage.Entities.Entity"/> that can be salvaged for scrap.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.ISalvagable.Scrap">
+            <summary>
+            The amount of scrap that can be salvaged from this <see cref="T:AutoSalvage.Entities.Entity"/>.
+            </summary>
+        </member>
+        <member name="T:AutoSalvage.Entities.Structure">
+            <summary>
+            An immovable structure.
+            </summary>
+        </member>
+        <member name="T:AutoSalvage.Entities.UselessCargo">
+            <summary>
+            A useless, obstructive structure.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Generator.FloorPlanBuilder.AllDoors">
+            <summary>
+            All doors in the floor plan.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Generator.FloorPlanBuilder.AllRooms">
+            <summary>
+            All rooms in the floor plan.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Generator.FloorPlanBuilder.FloorPlan">
+            <summary>
+            The floor plan being built.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.Generator.FloorPlanBuilder.#ctor(System.String)">
+            <summary>
+            Initialises a enw instance of the <see cref="T:AutoSalvage.Generator.FloorPlanBuilder"/> class, creating a floor plan with the specified <paramref name="id"/>.
+            </summary>
+            <param name="id">The new floor plan's id.</param>
+        </member>
+        <member name="M:AutoSalvage.Generator.FloorPlanBuilder.#ctor(AutoSalvage.World.FloorPlan)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.Generator.FloorPlanBuilder"/> class to build upon the specified <see cref="P:AutoSalvage.Generator.FloorPlanBuilder.FloorPlan"/>.
+            </summary>
+            <param name="floorPlan">The floor plan to build upon.</param>
+        </member>
+        <member name="M:AutoSalvage.Generator.FloorPlanBuilder.AddDoor(AutoSalvage.World.Door,AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Adds a door joining two rooms.
+            </summary>
+            <param name="door">The door to add.</param>
+            <param name="room1">The first room adjoining the door.</param>
+            <param name="room2">The second room adjoining the door.</param>
+        </member>
+        <member name="M:AutoSalvage.Generator.FloorPlanBuilder.AddRoom(AutoSalvage.World.Room)">
+            <summary>
+            Adds a room.
+            </summary>
+            <param name="room">The room to add.</param>
+        </member>
+        <member name="T:AutoSalvage.Generator.GridFloorPlanGenerator">
+            <summary>
+            Creates a <see cref="T:AutoSalvage.World.FloorPlan"/> in an aligned grid layout.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.#ctor(System.Random,AutoSalvage.Generator.IUidGenerator{System.String})">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.Generator.GridFloorPlanGenerator"/> class.
+            </summary>
+            <param name="random">An initialised random number generator.  If null, a default <see cref="T:System.Random"/> is created.</param>
+            <param name="uidGenerator">The generator for floor plan, room and door ids.</param>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.CreateFloorPlan">
+            <summary>
+            Creates an entire floor plan.
+            </summary>
+            <returns>The floor plan.</returns>
+            <remarks>Not thread-safe.</remarks>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.CreateFirstRoom">
+            <summary>
+            Creates the first room of the floor plan.
+            </summary>
+            <returns>The room.</returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.CreateRoom">
+            <summary>
+            Creates another room for the floor plan.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.RandomlySelectRoomBounds">
+            <summary>
+            Randomly returns the bounds of a room that can exist adjacent to an existing room.
+            </summary>
+            <returns>Randomly selected bounds for a new room.</returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.GetNeighbouringRooms(AutoSalvage.World.Room)">
+            <summary>
+            Gets all rooms that have only a wall between them and the specified room.
+            </summary>
+            <param name="room">The room to find the neighbours of.</param>
+            <returns>The rooms neighbouring the specified <paramref name="room"/>.</returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.CreateDoor(AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Creates a door joining the two rooms.
+            </summary>
+            <param name="room1">The first room.</param>
+            <param name="room2">The second room.</param>
+            <returns>The door joining the two rooms.  Null if a door cannot be placed between these rooms.</returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.CalculatePotentialDoorBounds(AutoSalvage.World.Room,AutoSalvage.World.Room)">
+            <summary>
+            Returns the area directly between the two rooms.
+            </summary>
+            <param name="room1">The first room.</param>
+            <param name="room2">The second room.</param>
+            <returns>The area directly between the two rooms.  If the rooms are not 
+            aligned horizontally or vertically, returns a <see cref="T:System.Drawing.Rectangle"/> with a
+            <see cref="P:System.Drawing.Rectangle.Size"/> of <see cref="F:System.Drawing.Size.Empty"/>.</returns>
+            <exception cref="T:System.ArgumentException">The two rooms overlap.</exception>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Removes and returns a random item from the collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="items">The items from which to choose a random item.</param>
+            <returns>The randomly chosen item.</returns>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.GetRandom``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Returns a random item from the collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="items">The items from which to choose a random item.</param>
+            <returns>The randomly chosen item.</returns>
+        </member>
+        <member name="T:AutoSalvage.Generator.Hex4UidGenerator">
+            <summary>
+            Generates unique identifiers consisting of four hexadecimal digits.
+            </summary>
+        </member>
+        <member name="F:AutoSalvage.Generator.Hex4UidGenerator.Primes">
+            <summary>
+            A list of all prime numbers between 13 and 16 bits long.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.Generator.Hex4UidGenerator.#ctor(System.Random)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.Generator.Hex4UidGenerator"/> class.
+            </summary>
+            <param name="random">An initialised <see cref="T:System.Random"/> used to seed this <see cref="T:AutoSalvage.Generator.Hex4UidGenerator"/>.</param>
+        </member>
+        <member name="M:AutoSalvage.Generator.Hex4UidGenerator.Next">
+            <summary>
+            Gets the next unique identifier.
+            </summary>
+            <returns>The next unique identifier.</returns>
+        </member>
+        <member name="T:AutoSalvage.Generator.IFloorPlanGenerator">
+            <summary>
+            A class that creates <see cref="T:AutoSalvage.World.FloorPlan"/>s.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.Generator.IFloorPlanGenerator.CreateFloorPlan">
+            <summary>
+            Creates an entire <see cref="T:AutoSalvage.World.FloorPlan"/>.
+            </summary>
+            <returns>The <see cref="T:AutoSalvage.World.FloorPlan"/>.</returns>
+            <remarks>Not thread-safe.</remarks>
+        </member>
+        <member name="T:AutoSalvage.Generator.IUidGenerator`1">
+            <summary>
+            Produces unique identifiers.
+            </summary>
+            <typeparam name="T">The type of the identifiers.</typeparam>
+        </member>
+        <member name="M:AutoSalvage.Generator.IUidGenerator`1.Next">
+            <summary>
+            Returns the next unique identifier.
+            </summary>
+            <returns>The next unique identifier.</returns>
+        </member>
+        <member name="T:AutoSalvage.ValueChangedEventArgs`1">
+            <summary>
+            Contains information on the previous state of a changed value.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+        </member>
+        <member name="P:AutoSalvage.ValueChangedEventArgs`1.OldValue">
+            <summary>
+            The property's previous value.
+            </summary>
+        </member>
+        <member name="M:AutoSalvage.ValueChangedEventArgs`1.#ctor(`0)">
+            <summary>
+            Initialises a new instance of the <see cref="T:AutoSalvage.ValueChangedEventArgs`1"/> class.
+            </summary>
+            <param name="oldValue">The property's previous value.</param>
         </member>
         <member name="T:AutoSalvage.World.Door">
             <summary>
@@ -106,170 +380,6 @@
             Initialises a new instance of the <see cref="T:AutoSalvage.World.FloorPlan"/> class.
             </summary>
             <param name="id">The <see cref="T:AutoSalvage.World.FloorPlan"/>'s unique identifier.</param>
-        </member>
-        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.AllDoors">
-            <summary>
-            All doors in the floor plan.
-            </summary>
-        </member>
-        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.AllRooms">
-            <summary>
-            All rooms in the floor plan.
-            </summary>
-        </member>
-        <member name="P:AutoSalvage.World.Generator.FloorPlanBuilder.FloorPlan">
-            <summary>
-            The floor plan being built.
-            </summary>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.#ctor(System.String)">
-            <summary>
-            Initialises a enw instance of the <see cref="T:AutoSalvage.World.Generator.FloorPlanBuilder"/> class, creating a floor plan with the specified <paramref name="id"/>.
-            </summary>
-            <param name="id">The new floor plan's id.</param>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.#ctor(AutoSalvage.World.FloorPlan)">
-            <summary>
-            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.FloorPlanBuilder"/> class to build upon the specified <see cref="P:AutoSalvage.World.Generator.FloorPlanBuilder.FloorPlan"/>.
-            </summary>
-            <param name="floorPlan">The floor plan to build upon.</param>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.AddDoor(AutoSalvage.World.Door,AutoSalvage.World.Room,AutoSalvage.World.Room)">
-            <summary>
-            Adds a door joining two rooms.
-            </summary>
-            <param name="door">The door to add.</param>
-            <param name="room1">The first room adjoining the door.</param>
-            <param name="room2">The second room adjoining the door.</param>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.FloorPlanBuilder.AddRoom(AutoSalvage.World.Room)">
-            <summary>
-            Adds a room.
-            </summary>
-            <param name="room">The room to add.</param>
-        </member>
-        <member name="T:AutoSalvage.World.Generator.GridFloorPlanGenerator">
-            <summary>
-            Creates a <see cref="T:AutoSalvage.World.FloorPlan"/> in an aligned grid layout.
-            </summary>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.#ctor(System.Random,AutoSalvage.World.Generator.IUidGenerator{System.String})">
-            <summary>
-            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.GridFloorPlanGenerator"/> class.
-            </summary>
-            <param name="random">An initialised random number generator.  If null, a default <see cref="T:System.Random"/> is created.</param>
-            <param name="uidGenerator">The generator for floor plan, room and door ids.</param>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateFloorPlan">
-            <summary>
-            Creates an entire floor plan.
-            </summary>
-            <returns>The floor plan.</returns>
-            <remarks>Not thread-safe.</remarks>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateFirstRoom">
-            <summary>
-            Creates the first room of the floor plan.
-            </summary>
-            <returns>The room.</returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateRoom">
-            <summary>
-            Creates another room for the floor plan.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.RandomlySelectRoomBounds">
-            <summary>
-            Randomly returns the bounds of a room that can exist adjacent to an existing room.
-            </summary>
-            <returns>Randomly selected bounds for a new room.</returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.GetNeighbouringRooms(AutoSalvage.World.Room)">
-            <summary>
-            Gets all rooms that have only a wall between them and the specified room.
-            </summary>
-            <param name="room">The room to find the neighbours of.</param>
-            <returns>The rooms neighbouring the specified <paramref name="room"/>.</returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CreateDoor(AutoSalvage.World.Room,AutoSalvage.World.Room)">
-            <summary>
-            Creates a door joining the two rooms.
-            </summary>
-            <param name="room1">The first room.</param>
-            <param name="room2">The second room.</param>
-            <returns>The door joining the two rooms.  Null if a door cannot be placed between these rooms.</returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.CalculatePotentialDoorBounds(AutoSalvage.World.Room,AutoSalvage.World.Room)">
-            <summary>
-            Returns the area directly between the two rooms.
-            </summary>
-            <param name="room1">The first room.</param>
-            <param name="room2">The second room.</param>
-            <returns>The area directly between the two rooms.</returns>
-            <exception cref="T:System.ArgumentException">The two rooms overlap.</exception>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
-            <summary>
-            Removes and returns a random item from the collection.
-            </summary>
-            <typeparam name="T">The type of items in the collection.</typeparam>
-            <param name="items">The items from which to choose a random item.</param>
-            <returns>The randomly chosen item.</returns>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.GridFloorPlanGenerator.GetRandom``1(System.Collections.Generic.ICollection{``0})">
-            <summary>
-            Returns a random item from the collection.
-            </summary>
-            <typeparam name="T">The type of items in the collection.</typeparam>
-            <param name="items">The items from which to choose a random item.</param>
-            <returns>The randomly chosen item.</returns>
-        </member>
-        <member name="T:AutoSalvage.World.Generator.Hex4UidGenerator">
-            <summary>
-            Generates unique identifiers consisting of four hexadecimal digits.
-            </summary>
-        </member>
-        <member name="F:AutoSalvage.World.Generator.Hex4UidGenerator.Primes">
-            <summary>
-            A list of all prime numbers between 13 and 16 bits long.
-            </summary>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.Hex4UidGenerator.#ctor(System.Random)">
-            <summary>
-            Initialises a new instance of the <see cref="T:AutoSalvage.World.Generator.Hex4UidGenerator"/> class.
-            </summary>
-            <param name="random">An initialised <see cref="T:System.Random"/> used to seed this <see cref="T:AutoSalvage.World.Generator.Hex4UidGenerator"/>.</param>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.Hex4UidGenerator.Next">
-            <summary>
-            Gets the next unique identifier.
-            </summary>
-            <returns>The next unique identifier.</returns>
-        </member>
-        <member name="T:AutoSalvage.World.Generator.IFloorPlanGenerator">
-            <summary>
-            A class that creates <see cref="T:AutoSalvage.World.FloorPlan"/>s.
-            </summary>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.IFloorPlanGenerator.CreateFloorPlan">
-            <summary>
-            Creates an entire <see cref="T:AutoSalvage.World.FloorPlan"/>.
-            </summary>
-            <returns>The <see cref="T:AutoSalvage.World.FloorPlan"/>.</returns>
-            <remarks>Not thread-safe.</remarks>
-        </member>
-        <member name="T:AutoSalvage.World.Generator.IUidGenerator`1">
-            <summary>
-            Produces unique identifiers.
-            </summary>
-            <typeparam name="T">The type of the identifiers.</typeparam>
-        </member>
-        <member name="M:AutoSalvage.World.Generator.IUidGenerator`1.Next">
-            <summary>
-            Returns the next unique identifier.
-            </summary>
-            <returns>The next unique identifier.</returns>
         </member>
         <member name="T:AutoSalvage.World.Room">
             <summary>

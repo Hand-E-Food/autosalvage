@@ -1,4 +1,4 @@
-﻿namespace AutoSalvage.Objects
+﻿namespace AutoSalvage.Entities
 {
     public class ScrapPile : Entity, ISalvagable
     {

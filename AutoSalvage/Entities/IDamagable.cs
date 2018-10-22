@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoSalvage.Objects
+namespace AutoSalvage.Entities
 {
     /// <summary>
     /// An <see cref="Entity"/> that can be damaged.

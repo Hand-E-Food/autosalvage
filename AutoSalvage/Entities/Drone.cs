@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoSalvage.Objects
+namespace AutoSalvage.Entities
 {
     public class Drone : Entity, IDamagable, ISalvagable
     {

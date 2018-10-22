@@ -1,4 +1,4 @@
-﻿namespace AutoSalvage.Objects
+﻿namespace AutoSalvage.Entities
 {
     /// <summary>
     /// An <see cref="Entity"/> that can be salvaged for scrap.

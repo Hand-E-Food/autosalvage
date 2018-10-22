@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoSalvage.Objects
+namespace AutoSalvage.Entities
 {
     /// <summary>
     /// An immovable structure.

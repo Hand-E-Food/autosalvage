@@ -1,4 +1,4 @@
-﻿namespace AutoSalvage.Objects
+﻿namespace AutoSalvage.Entities
 {
     /// <summary>
     /// A useless, obstructive structure.

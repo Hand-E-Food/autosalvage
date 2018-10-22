@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace AutoSalvage.Objects
+namespace AutoSalvage.Entities
 {
     /// <summary>
     /// Any object in a world.
