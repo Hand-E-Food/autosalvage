@@ -9,6 +9,8 @@ namespace AutoSalvage.WinForms
 
     public partial class FloorPlanView : UserControl
     {
+        private SizeF translation;
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FloorPlan FloorPlan
         {
@@ -75,17 +77,17 @@ namespace AutoSalvage.WinForms
         {
             base.OnPaint(e);
 
-            var translation = new SizeF(Width / 2f, Height / 2f);
-
             foreach (var room in floorPlan.Rooms.Values)
             {
                 var bounds = room.Bounds.ToRectangleF().Transform(translation, zoom);
-                e.Graphics.DrawRectangle(Pens.White, bounds);
+                e.Graphics.FillRectangle(Brushes.DarkGray, bounds);
+                e.Graphics.DrawRectangle(Pens.LightGray, bounds);
             }
 
             foreach (var door in floorPlan.Doors.Values)
             {
                 var bounds = door.Bounds.ToRectangleF().Transform(translation, zoom);
+                e.Graphics.FillRectangle(Brushes.Blue, bounds);
                 e.Graphics.DrawRectangle(Pens.SkyBlue, bounds);
             }
         }
@@ -93,6 +95,7 @@ namespace AutoSalvage.WinForms
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
+            translation = new SizeF(Width / 2f, Height / 2f);
             Invalidate();
         }
     }
