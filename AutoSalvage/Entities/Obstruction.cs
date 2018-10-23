@@ -3,10 +3,10 @@
     /// <summary>
     /// A useless, obstructive structure.
     /// </summary>
-    public class UselessCargo : Structure
+    public class Obstruction : Structure
     {
         public override int MaximumHealth => 0;
 
-        public override string Name => "useless cargo";
+        public override string Name => "obstruction";
     }
 }
