@@ -10,7 +10,7 @@ namespace AutoSalvage.Entities
         /// <summary>
         /// This <see cref="Entity"/>'s footprint.
         /// </summary>
-        public Rectangle Bound { get; internal set; }
+        public Rectangle Bounds { get; internal set; }
 
         /// <summary>
         /// True if this <see cref="Entity"/> obstructs the movement of another <see cref="Entity"/>.
