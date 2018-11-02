@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AutoSalvage.Entities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace AutoSalvage.World
@@ -13,6 +14,9 @@ namespace AutoSalvage.World
         /// </summary>
         public IReadOnlyDictionary<string, Door> Doors { get; }
         internal Dictionary<string, Door> doors = new Dictionary<string, Door>();
+
+        public IReadOnlyCollection<Entity> Entities { get; }
+        internal List<Entity> entities = new List<Entity>();
 
         /// <summary>
         /// The <see cref="Room"/> where the player starts.
@@ -39,6 +43,7 @@ namespace AutoSalvage.World
             Id = id;
 
             Doors = new ReadOnlyDictionary<string, Door>(doors);
+            Entities = new ReadOnlyCollection<Entity>(entities);
             Rooms = new ReadOnlyDictionary<string, Room>(rooms);
         }
     }

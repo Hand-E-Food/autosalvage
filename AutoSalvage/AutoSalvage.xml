@@ -56,7 +56,7 @@
             Any object in a world.
             </summary>
         </member>
-        <member name="P:AutoSalvage.Entities.Entity.Bound">
+        <member name="P:AutoSalvage.Entities.Entity.Bounds">
             <summary>
             This <see cref="T:AutoSalvage.Entities.Entity"/>'s footprint.
             </summary>
@@ -69,6 +69,16 @@
         <member name="P:AutoSalvage.Entities.Entity.Name">
             <summary>
             This <see cref="T:AutoSalvage.Entities.Entity"/>'s display name.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.Entity.X">
+            <summary>
+            This <see cref="T:AutoSalvage.Entities.Entity"/>'s X position.
+            </summary>
+        </member>
+        <member name="P:AutoSalvage.Entities.Entity.Y">
+            <summary>
+            This <see cref="T:AutoSalvage.Entities.Entity"/>'s Y position.
             </summary>
         </member>
         <member name="T:AutoSalvage.Entities.IDamagable">
@@ -106,14 +116,14 @@
             The amount of scrap that can be salvaged from this <see cref="T:AutoSalvage.Entities.Entity"/>.
             </summary>
         </member>
+        <member name="T:AutoSalvage.Entities.Obstruction">
+            <summary>
+            A useless, obstructive structure.
+            </summary>
+        </member>
         <member name="T:AutoSalvage.Entities.Structure">
             <summary>
             An immovable structure.
-            </summary>
-        </member>
-        <member name="T:AutoSalvage.Entities.UselessCargo">
-            <summary>
-            A useless, obstructive structure.
             </summary>
         </member>
         <member name="P:AutoSalvage.Generator.FloorPlanBuilder.AllDoors">
@@ -219,6 +229,12 @@
             aligned horizontally or vertically, returns a <see cref="T:System.Drawing.Rectangle"/> with a
             <see cref="P:System.Drawing.Rectangle.Size"/> of <see cref="F:System.Drawing.Size.Empty"/>.</returns>
             <exception cref="T:System.ArgumentException">The two rooms overlap.</exception>
+        </member>
+        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.FillWithEntities(AutoSalvage.World.Room)">
+            <summary>
+            Adds <see cref="T:AutoSalvage.Entities.Entity"/> objects to the <see cref="T:AutoSalvage.World.Room"/>.
+            </summary>
+            <param name="room">The <see cref="T:AutoSalvage.World.Room"/> to populate.</param>
         </member>
         <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
             <summary>

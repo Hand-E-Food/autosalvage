@@ -1,4 +1,5 @@
-﻿using AutoSalvage.World;
+﻿using AutoSalvage.Entities;
+using AutoSalvage.World;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,10 +24,11 @@ namespace AutoSalvage.Generator
             new Size(-RoomSize.Width  - WallThickness, 0),
             new Size( RoomSize.Width  + WallThickness, 0),
         };
+        private static readonly Rectangle Size1Rectangle = new Rectangle(0, 0, 1, 1);
 
         private readonly Random random;
+        private readonly List<WeightedItem<Func<Entity>>> randomEntities;
         private readonly IUidGenerator<string> uidGenerator;
-
         private FloorPlanBuilder floorPlan;
 
         /// <summary>
@@ -38,6 +40,14 @@ namespace AutoSalvage.Generator
         {
             this.random = random ?? new Random();
             this.uidGenerator = uidGenerator;
+
+            randomEntities = new List<WeightedItem<Func<Entity>>> {
+                new WeightedItem<Func<Entity>>( 6, CreateNothingElse),
+                new WeightedItem<Func<Entity>>( 1, CreateObstruction),
+                new WeightedItem<Func<Entity>>( 2, CreateScrapPile),
+                new WeightedItem<Func<Entity>>( 2, CreateDisabledDrone),
+                new WeightedItem<Func<Entity>>( 1, CreateDestroyedDrone),
+            };
         }
 
         /// <summary>
@@ -84,6 +94,8 @@ namespace AutoSalvage.Generator
             {
                 var door = CreateDoor(room, neighbouringRoom);
             }
+
+            FillWithEntities(room);
 
             return room;
         }
@@ -197,6 +209,57 @@ namespace AutoSalvage.Generator
         }
 
         /// <summary>
+        /// Adds <see cref="Entity"/> objects to the <see cref="Room"/>.
+        /// </summary>
+        /// <param name="room">The <see cref="Room"/> to populate.</param>
+        private void FillWithEntities(Room room)
+        {
+            var entities = new List<Entity>();
+            while (true)
+            {
+                var entity = GetRandom(randomEntities)();
+                if (entity == null)
+                    break;
+
+                do
+                {
+                    var location = room.Bounds.Location + new Size(random.Next(room.Bounds.Width - entity.Bounds.Width + 1), random.Next(room.Bounds.Height - entity.Bounds.Height + 1));
+                    entity.Bounds = new Rectangle(location, entity.Bounds.Size);
+                }
+                while (entities.Any(other => other.Bounds.IntersectsWith(entity.Bounds)));
+
+                entities.Add(entity);
+            }
+            room.FloorPlan.entities.AddRange(entities);
+        }
+
+        private Entity CreateNothingElse() => null;
+
+        private Entity CreateObstruction() => new Obstruction { Bounds = Size1Rectangle };
+
+        private Entity CreateScrapPile() => new ScrapPile { Bounds = Size1Rectangle };
+
+        private Entity CreateDisabledDrone()
+        {
+            return new Drone
+            {
+                Bounds = Size1Rectangle,
+                Health = 0,
+                MaximumHealth = 100,
+            };
+        }
+
+        private Entity CreateDestroyedDrone()
+        {
+            return new Drone
+            {
+                Bounds = Size1Rectangle,
+                Health = 0,
+                MaximumHealth = 0,
+            };
+        }
+
+        /// <summary>
         /// Removes and returns a random item from the collection.
         /// </summary>
         /// <typeparam name="T">The type of items in the collection.</typeparam>
@@ -223,6 +286,31 @@ namespace AutoSalvage.Generator
                 while (i-- >= 0)
                     enumerator.MoveNext();
                 return enumerator.Current;
+            }
+        }
+
+        private T GetRandom<T>(ICollection<WeightedItem<T>> items)
+        {
+            var totalWeight = items.Sum(item => item.Weight);
+            var n = random.Next(totalWeight);
+            foreach (var item in items)
+            {
+                n -= item.Weight;
+                if (n < 0)
+                    return item.Value;
+            }
+            throw new Exception("Basic math has failed.");
+        }
+
+        private class WeightedItem<T>
+        {
+            public int Weight { get; }
+            public T Value { get; }
+
+            public WeightedItem(int weight, T value)
+            {
+                Weight = weight;
+                Value = value;
             }
         }
     }
