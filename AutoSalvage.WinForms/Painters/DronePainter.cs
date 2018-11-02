@@ -1,10 +1,14 @@
 ﻿using AutoSalvage.Entities;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace AutoSalvage.WinForms.Painters
 {
     internal class DronePainter : IPainter
     {
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Drone) };
+
         public void Paint(FloorPlanViewInfo info, object obj)
         {
             var drone = (Drone)obj;

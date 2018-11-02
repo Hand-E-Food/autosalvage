@@ -1,10 +1,18 @@
-﻿namespace AutoSalvage.WinForms.Painters
+﻿using System;
+using System.Collections.Generic;
+
+namespace AutoSalvage.WinForms.Painters
 {
     /// <summary>
     /// Paints an object.
     /// </summary>
     internal interface IPainter
     {
+        /// <summary>
+        /// The types this class can paint.
+        /// </summary>
+        IEnumerable<Type> SupportedTypes { get; }
+
         /// <summary>
         /// Paints <paramref name="obj"/> using graphics information in <paramref name="info"/>.
         /// </summary>

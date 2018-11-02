@@ -1,10 +1,14 @@
 ﻿using AutoSalvage.Entities;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace AutoSalvage.WinForms.Painters
 {
     internal class ScrapPilePainter : IPainter
     {
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(ScrapPile) };
+
         public void Paint(FloorPlanViewInfo info, object obj)
         {
             var scrap = (ScrapPile)obj;

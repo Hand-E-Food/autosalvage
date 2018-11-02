@@ -79,13 +79,17 @@ namespace AutoSalvage.WinForms
         {
             InitializeComponent();
 
-            painters = new Dictionary<Type, IPainter> {
-                { typeof(Door), new DoorPainter() },
-                { typeof(Drone), new DronePainter() },
-                { typeof(Obstruction), new ObstructionPainter() },
-                { typeof(Room), new RoomPainter() },
-                { typeof(ScrapPile), new ScrapPilePainter() },
-            };
+            painters = typeof(IPainter).Assembly
+                .GetTypes()
+                .Where(type => !type.IsAbstract && typeof(IPainter).IsAssignableFrom(type))
+                .Select(type => (IPainter)Activator.CreateInstance(type))
+                .SelectMany(painter => painter.SupportedTypes
+                    .Select(type => new { type, painter })
+                )
+                .ToDictionary(
+                    pair => pair.type,
+                    pair => pair.painter
+                );
         }
 
         protected override void OnPaint(PaintEventArgs e)

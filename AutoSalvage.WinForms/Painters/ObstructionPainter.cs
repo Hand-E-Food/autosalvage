@@ -1,10 +1,14 @@
 ﻿using AutoSalvage.Entities;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace AutoSalvage.WinForms.Painters
 {
     internal class ObstructionPainter : IPainter
     {
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Obstruction) };
+
         public void Paint(FloorPlanViewInfo info, object obj)
         {
             var obstruction = (Obstruction)obj;

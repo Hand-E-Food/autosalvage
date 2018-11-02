@@ -1,10 +1,14 @@
 ﻿using AutoSalvage.World;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace AutoSalvage.WinForms.Painters
 {
     internal class DoorPainter : IPainter
     {
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Door) };
+
         public void Paint(FloorPlanViewInfo info, object obj)
         {
             var door = (Door)obj;
