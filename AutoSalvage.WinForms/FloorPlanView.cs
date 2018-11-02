@@ -1,7 +1,12 @@
-﻿using AutoSalvage.World;
+﻿using AutoSalvage.Entities;
+using AutoSalvage.WinForms.Painters;
+using AutoSalvage.World;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace AutoSalvage.WinForms
@@ -9,6 +14,8 @@ namespace AutoSalvage.WinForms
 
     public partial class FloorPlanView : UserControl
     {
+        private readonly Dictionary<Type, IPainter> painters;
+
         private SizeF translation;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -71,25 +78,31 @@ namespace AutoSalvage.WinForms
         public FloorPlanView()
         {
             InitializeComponent();
+
+            painters = new Dictionary<Type, IPainter> {
+                { typeof(Door), new DoorPainter() },
+                { typeof(Drone), new DronePainter() },
+                { typeof(Obstruction), new ObstructionPainter() },
+                { typeof(Room), new RoomPainter() },
+                { typeof(ScrapPile), new ScrapPilePainter() },
+            };
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            foreach (var room in floorPlan.Rooms.Values)
-            {
-                var bounds = room.Bounds.ToRectangleF().Transform(translation, zoom);
-                e.Graphics.FillRectangle(Brushes.DarkGray, bounds);
-                e.Graphics.DrawRectangle(Pens.LightGray, bounds);
-            }
+            var info = new FloorPlanViewInfo(e.Graphics, translation, zoom);
+            PaintObjects(info, floorPlan.Rooms.Values);
+            PaintObjects(info, floorPlan.Doors.Values);
+            PaintObjects(info, floorPlan.Entities);
+        }
 
-            foreach (var door in floorPlan.Doors.Values)
-            {
-                var bounds = door.Bounds.ToRectangleF().Transform(translation, zoom);
-                e.Graphics.FillRectangle(Brushes.Blue, bounds);
-                e.Graphics.DrawRectangle(Pens.SkyBlue, bounds);
-            }
+        private void PaintObjects(FloorPlanViewInfo info, IEnumerable objs)
+        {
+            foreach (object obj in objs)
+                if (painters.TryGetValue(obj.GetType(), out var painter))
+                    painter.Paint(info, obj);
         }
 
         protected override void OnSizeChanged(EventArgs e)

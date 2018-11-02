@@ -53,12 +53,19 @@
     <Compile Include="FloorPlanView.Designer.cs">
       <DependentUpon>FloorPlanView.cs</DependentUpon>
     </Compile>
+    <Compile Include="FloorPlanViewInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Painters\ObstructionPainter.cs" />
+    <Compile Include="Painters\ScrapPilePainter.cs" />
+    <Compile Include="Painters\DoorPainter.cs" />
+    <Compile Include="Painters\DronePainter.cs" />
+    <Compile Include="Painters\IPainter.cs" />
+    <Compile Include="Painters\RoomPainter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
