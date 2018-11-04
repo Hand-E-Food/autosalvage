@@ -28,9 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FloorPlanView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.DoubleBuffered = true;
+            this.Name = "FloorPlanView";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.FloorPlanView_MouseEnter);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseUp);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

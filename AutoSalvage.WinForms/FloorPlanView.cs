@@ -16,7 +16,9 @@ namespace AutoSalvage.WinForms
     {
         private readonly Dictionary<Type, IPainter> painters;
 
+        private Point? mouseStart = null;
         private SizeF translation;
+        private PointF? viewCenterStart = null;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FloorPlan FloorPlan
@@ -38,7 +40,7 @@ namespace AutoSalvage.WinForms
         protected void OnFloorPlanChanged() => FloorPlanChanged?.Invoke(this, EventArgs.Empty);
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Point ViewCenter
+        public PointF ViewCenter
         {
             get => viewCenter;
             set
@@ -47,10 +49,11 @@ namespace AutoSalvage.WinForms
                     return;
 
                 viewCenter = value;
+                CalculateTranslation();
                 Invalidate();
             }
         }
-        private Point viewCenter;
+        private PointF viewCenter;
         public event EventHandler ViewCenterChanged;
         protected void OnViewCenterChanged() => ViewCenterChanged?.Invoke(this, EventArgs.Empty);
 
@@ -112,8 +115,80 @@ namespace AutoSalvage.WinForms
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            translation = new SizeF(Width / 2f, Height / 2f);
+            CalculateTranslation();
             Invalidate();
+        }
+
+        private void CalculateTranslation()
+        {
+            translation = new SizeF(Width / 2f + ViewCenter.X, Height / 2f + ViewCenter.Y);
+        }
+
+        private void FloorPlanView_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    StartPanning(e.Location);
+                    break;
+
+                case MouseButtons.Right:
+                    CancelPanning();
+                    break;
+            }
+        }
+
+        private void FloorPlanView_MouseMove(object sender, MouseEventArgs e)
+        {
+            ContinuePanning(e);
+        }
+
+        private void FloorPlanView_MouseUp(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    EndPanning();
+                    break;
+            }
+        }
+
+        private void FloorPlanView_MouseEnter(object sender, EventArgs e)
+        {
+            if ((MouseButtons & MouseButtons.Left) == 0)
+                EndPanning();
+        }
+
+        private void StartPanning(Point pixelLocation)
+        {
+            mouseStart = pixelLocation;
+            viewCenterStart = ViewCenter;
+        }
+
+        private void ContinuePanning(MouseEventArgs e)
+        {
+            if (mouseStart.HasValue)
+            {
+                var deltaX = e.X - mouseStart.Value.X;
+                var deltaY = e.Y - mouseStart.Value.Y;
+                ViewCenter = new PointF(viewCenterStart.Value.X + deltaX, viewCenterStart.Value.Y + deltaY);
+            }
+        }
+
+        private void CancelPanning()
+        {
+            mouseStart = null;
+            if (viewCenterStart.HasValue)
+            {
+                ViewCenter = viewCenterStart.Value;
+                viewCenterStart = null;
+            }
+        }
+
+        private void EndPanning()
+        {
+            mouseStart = null;
+            viewCenterStart = null;
         }
     }
 }
