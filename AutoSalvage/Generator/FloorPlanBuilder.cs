@@ -1,5 +1,7 @@
 ﻿using AutoSalvage.World;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace AutoSalvage.Generator
 {
@@ -69,6 +71,12 @@ namespace AutoSalvage.Generator
             if (FloorPlan.rooms.Count == 0)
                 FloorPlan.FirstRoom = room;
             FloorPlan.rooms.Add(room.Id, room);
+        }
+
+        public bool IsEmptySpace(Rectangle bounds)
+        {
+            return FloorPlan.Rooms.Values.Any(room => room.Bounds.Contains(bounds))
+                && FloorPlan.Entities.All(entity => !entity.Bounds.IntersectsWith(bounds));
         }
     }
 }

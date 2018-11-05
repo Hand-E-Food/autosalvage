@@ -1,4 +1,4 @@
-﻿using AutoSalvage.Generator;
+﻿using AutoSalvage.Engine;
 using System;
 using System.Windows.Forms;
 
@@ -16,9 +16,9 @@ namespace AutoSalvage.WinForms
             base.OnLoad(e);
 
             var random = new Random();
-            var uidGenerator = new Hex4UidGenerator(random);
-            var generator = new GridFloorPlanGenerator(random, uidGenerator);
-            var floorPlan = generator.CreateFloorPlan();
+            var engine = new GameEngine(random);
+            var operatorInterface = engine.CreateNextFloorPlan();
+            var floorPlan = operatorInterface.FloorPlan.FloorPlan;
             floorPlanView.FloorPlan = floorPlan;
         }
     }
