@@ -9,7 +9,7 @@ namespace AutoSalvage.WinForms.Painters
     {
         public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Door) };
 
-        public void Paint(FloorPlanViewInfo info, object obj)
+        public void Paint(TransformedPaintingInfo info, object obj)
         {
             var door = (Door)obj;
             var bounds = info.Transform(door.Bounds.ToRectangleF());

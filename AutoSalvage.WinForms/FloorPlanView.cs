@@ -100,13 +100,13 @@ namespace AutoSalvage.WinForms
         {
             base.OnPaint(e);
 
-            var info = new FloorPlanViewInfo(e.Graphics, translation, zoom);
+            var info = new TransformedPaintingInfo(e.Graphics, Translation, zoom);
             PaintObjects(info, floorPlan.Rooms.Values);
             PaintObjects(info, floorPlan.Doors.Values);
             PaintObjects(info, floorPlan.Entities);
         }
 
-        private void PaintObjects(FloorPlanViewInfo info, IEnumerable objs)
+        private void PaintObjects(TransformedPaintingInfo info, IEnumerable objs)
         {
             foreach (object obj in objs)
                 if (painters.TryGetValue(obj.GetType(), out var painter))

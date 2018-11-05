@@ -9,7 +9,7 @@ namespace AutoSalvage.WinForms.Painters
     {
         public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Obstruction) };
 
-        public void Paint(FloorPlanViewInfo info, object obj)
+        public void Paint(TransformedPaintingInfo info, object obj)
         {
             var obstruction = (Obstruction)obj;
             var bounds = obstruction.Bounds.ToRectangleF();

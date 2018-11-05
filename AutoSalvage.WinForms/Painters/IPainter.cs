@@ -18,6 +18,6 @@ namespace AutoSalvage.WinForms.Painters
         /// </summary>
         /// <param name="info">The graphics information used for painting.</param>
         /// <param name="obj">The objecte to paint.</param>
-        void Paint(FloorPlanViewInfo info, object obj);
+        void Paint(TransformedPaintingInfo info, object obj);
     }
 }

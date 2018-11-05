@@ -53,7 +53,7 @@
     <Compile Include="FloorPlanView.Designer.cs">
       <DependentUpon>FloorPlanView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FloorPlanViewInfo.cs" />
+    <Compile Include="TransformedPaintingInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

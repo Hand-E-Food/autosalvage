@@ -2,14 +2,23 @@
 
 namespace AutoSalvage.WinForms
 {
-    internal class FloorPlanViewInfo
+    internal class TransformedPaintingInfo
     {
         private readonly float scale;
         private readonly SizeF translation;
 
+        /// <summary>
+        /// The <see cref="Graphics"/> object to paint to.
+        /// </summary>
         public Graphics Graphics { get; }
 
-        public FloorPlanViewInfo(Graphics graphics, SizeF translation, float scale)
+        /// <summary>
+        /// Initialises a new instance of the <see cref="TransformedPaintingInfo"/> class.
+        /// </summary>
+        /// <param name="graphics">The <see cref="Graphics"/> object to paint to.</param>
+        /// <param name="translation">The lateral translation to apply.</param>
+        /// <param name="scale">The scale transform to apply.</param>
+        public TransformedPaintingInfo(Graphics graphics, SizeF translation, float scale)
         {
             Graphics = graphics;
             this.translation = translation;
