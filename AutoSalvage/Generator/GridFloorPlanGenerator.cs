@@ -27,7 +27,7 @@ namespace AutoSalvage.Generator
         private static readonly Rectangle Size1Rectangle = new Rectangle(0, 0, 1, 1);
 
         private readonly Random random;
-        private readonly List<WeightedItem<Func<Entity>>> randomEntities;
+        private readonly List<Func<Entity>> randomEntities;
         private readonly IUidGenerator<string> uidGenerator;
         private FloorPlanBuilder floorPlan;
 
@@ -41,12 +41,12 @@ namespace AutoSalvage.Generator
             this.random = random ?? new Random();
             this.uidGenerator = uidGenerator;
 
-            randomEntities = new List<WeightedItem<Func<Entity>>> {
-                new WeightedItem<Func<Entity>>( 6, CreateNothingElse),
-                new WeightedItem<Func<Entity>>( 1, CreateObstruction),
-                new WeightedItem<Func<Entity>>( 2, CreateScrapPile),
-                new WeightedItem<Func<Entity>>( 2, CreateDisabledDrone),
-                new WeightedItem<Func<Entity>>( 1, CreateDestroyedDrone),
+            randomEntities = new List<Func<Entity>> {
+                { 18, CreateNothingElse }, // 75%
+                {  1, CreateObstruction },
+                {  2, CreateScrapPile },
+                {  2, CreateDisabledDrone },
+                {  1, CreateDestroyedDrone },
             };
         }
 
@@ -115,7 +115,7 @@ namespace AutoSalvage.Generator
                 .Except(floorPlan.AllRooms.Select(room => room.Bounds.Location))
                 .ToList();
 
-            return new Rectangle(GetRandom(locations), RoomSize);
+            return new Rectangle(random.Get(locations), RoomSize);
         }
 
         /// <summary>
@@ -217,14 +217,13 @@ namespace AutoSalvage.Generator
             var entities = new List<Entity>();
             while (true)
             {
-                var entity = GetRandom(randomEntities)();
+                var entity = random.Get(randomEntities)();
                 if (entity == null)
                     break;
 
                 do
                 {
-                    var location = room.Bounds.Location + new Size(random.Next(room.Bounds.Width - entity.Bounds.Width + 1), random.Next(room.Bounds.Height - entity.Bounds.Height + 1));
-                    entity.Bounds = new Rectangle(location, entity.Bounds.Size);
+                    entity.Bounds = random.Next(room.Bounds, entity.Bounds.Size);
                 }
                 while (entities.Any(other => other.Bounds.IntersectsWith(entity.Bounds)));
 
@@ -257,61 +256,6 @@ namespace AutoSalvage.Generator
                 Health = 0,
                 MaximumHealth = 0,
             };
-        }
-
-        /// <summary>
-        /// Removes and returns a random item from the collection.
-        /// </summary>
-        /// <typeparam name="T">The type of items in the collection.</typeparam>
-        /// <param name="items">The items from which to choose a random item.</param>
-        /// <returns>The randomly chosen item.</returns>
-        private T PopRandom<T>(List<T> items)
-        {
-            var result = GetRandom(items);
-            items.Remove(result);
-            return result;
-        }
-
-        /// <summary>
-        /// Returns a random item from the collection.
-        /// </summary>
-        /// <typeparam name="T">The type of items in the collection.</typeparam>
-        /// <param name="items">The items from which to choose a random item.</param>
-        /// <returns>The randomly chosen item.</returns>
-        private T GetRandom<T>(ICollection<T> items)
-        {
-            using (var enumerator = items.GetEnumerator())
-            {
-                var i = random.Next(items.Count);
-                while (i-- >= 0)
-                    enumerator.MoveNext();
-                return enumerator.Current;
-            }
-        }
-
-        private T GetRandom<T>(ICollection<WeightedItem<T>> items)
-        {
-            var totalWeight = items.Sum(item => item.Weight);
-            var n = random.Next(totalWeight);
-            foreach (var item in items)
-            {
-                n -= item.Weight;
-                if (n < 0)
-                    return item.Value;
-            }
-            throw new Exception("Basic math has failed.");
-        }
-
-        private class WeightedItem<T>
-        {
-            public int Weight { get; }
-            public T Value { get; }
-
-            public WeightedItem(int weight, T value)
-            {
-                Weight = weight;
-                Value = value;
-            }
         }
     }
 }

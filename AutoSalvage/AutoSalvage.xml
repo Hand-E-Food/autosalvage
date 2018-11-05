@@ -4,6 +4,15 @@
         <name>AutoSalvage</name>
     </assembly>
     <members>
+        <member name="M:AutoSalvage.CollectionExtensions.Add``1(System.Collections.Generic.ICollection{``0},System.Int32,``0)">
+            <summary>
+            Adds multiple copies of <paramref name="item"/> to the <paramref name="collection"/>.
+            </summary>
+            <typeparam name="T">The type of the elements in the collection.</typeparam>
+            <param name="collection">The collection to add to.</param>
+            <param name="count">The number of copies of <paramref name="item"/> to add.</param>
+            <param name="item">The item to add.</param>
+        </member>
         <member name="T:AutoSalvage.DrawingExtensions">
             <summary>
             Provides convenience methods for working with <see cref="N:System.Drawing"/> classes.
@@ -236,22 +245,6 @@
             </summary>
             <param name="room">The <see cref="T:AutoSalvage.World.Room"/> to populate.</param>
         </member>
-        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.PopRandom``1(System.Collections.Generic.List{``0})">
-            <summary>
-            Removes and returns a random item from the collection.
-            </summary>
-            <typeparam name="T">The type of items in the collection.</typeparam>
-            <param name="items">The items from which to choose a random item.</param>
-            <returns>The randomly chosen item.</returns>
-        </member>
-        <member name="M:AutoSalvage.Generator.GridFloorPlanGenerator.GetRandom``1(System.Collections.Generic.ICollection{``0})">
-            <summary>
-            Returns a random item from the collection.
-            </summary>
-            <typeparam name="T">The type of items in the collection.</typeparam>
-            <param name="items">The items from which to choose a random item.</param>
-            <returns>The randomly chosen item.</returns>
-        </member>
         <member name="T:AutoSalvage.Generator.Hex4UidGenerator">
             <summary>
             Generates unique identifiers consisting of four hexadecimal digits.
@@ -297,6 +290,28 @@
             Returns the next unique identifier.
             </summary>
             <returns>The next unique identifier.</returns>
+        </member>
+        <member name="M:AutoSalvage.RandomExtensions.Get``1(System.Random,System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Returns a random item from the collection.
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="random">The random number generator.</param>
+            <param name="items">The items from which to choose a random item.</param>
+            <returns>The randomly chosen item.</returns>
+        </member>
+        <member name="M:AutoSalvage.RandomExtensions.Next(System.Random,System.Drawing.Rectangle,System.Drawing.Size)">
+            <summary>
+            Returns a rectangle of size <paramref name="size"/> located randomly within the specified <paramref name="bounds"/>.
+            </summary>
+            <param name="random">The random number generator.</param>
+            <param name="bounds">The bounds within which to randomly locate the rectangle.</param>
+            <param name="size">The size of the rectangle.</param>
+            <returns>A rectangle of size <paramref name="size"/> located randomly within the specified <paramref name="bounds"/>.</returns>
+            <exception cref="T:System.ArgumentException">
+            <para><paramref name="bounds"/> or <paramref name="size"/> has negative dimensions; or</para>
+            <para><paramref name="size"/> does not fit inside <paramref name="bounds"/>.</para>
+            </exception>
         </member>
         <member name="T:AutoSalvage.ValueChangedEventArgs`1">
             <summary>
