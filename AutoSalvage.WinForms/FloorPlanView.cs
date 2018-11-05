@@ -1,5 +1,4 @@
-﻿using AutoSalvage.Entities;
-using AutoSalvage.WinForms.Painters;
+﻿using AutoSalvage.WinForms.Painters;
 using AutoSalvage.World;
 using System;
 using System.Collections;
@@ -14,11 +13,14 @@ namespace AutoSalvage.WinForms
 
     public partial class FloorPlanView : UserControl
     {
+        private const double ZoomRate = 1.1;
+
         private readonly Dictionary<Type, IPainter> painters;
 
         private Point? mouseStart = null;
-        private SizeF translation;
         private PointF? viewCenterStart = null;
+
+        private SizeF Translation => new SizeF(Width / 2f - ViewCenter.X * Zoom, Height / 2f - ViewCenter.Y * Zoom);
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FloorPlan FloorPlan
@@ -49,7 +51,6 @@ namespace AutoSalvage.WinForms
                     return;
 
                 viewCenter = value;
-                CalculateTranslation();
                 Invalidate();
             }
         }
@@ -115,13 +116,7 @@ namespace AutoSalvage.WinForms
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            CalculateTranslation();
             Invalidate();
-        }
-
-        private void CalculateTranslation()
-        {
-            translation = new SizeF(Width / 2f + ViewCenter.X, Height / 2f + ViewCenter.Y);
         }
 
         private void FloorPlanView_MouseDown(object sender, MouseEventArgs e)
@@ -129,7 +124,7 @@ namespace AutoSalvage.WinForms
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    StartPanning(e.Location);
+                    BeginPanning(e.Location);
                     break;
 
                 case MouseButtons.Right:
@@ -140,7 +135,7 @@ namespace AutoSalvage.WinForms
 
         private void FloorPlanView_MouseMove(object sender, MouseEventArgs e)
         {
-            ContinuePanning(e);
+            ContinuePanning(e.Location);
         }
 
         private void FloorPlanView_MouseUp(object sender, MouseEventArgs e)
@@ -153,25 +148,38 @@ namespace AutoSalvage.WinForms
             }
         }
 
+        private void FloorPlanView_MouseWheel(object sender, MouseEventArgs e)
+        {
+            Zoom = (float)(Zoom * Math.Pow(ZoomRate, e.Delta / 120));
+        }
+
         private void FloorPlanView_MouseEnter(object sender, EventArgs e)
         {
             if ((MouseButtons & MouseButtons.Left) == 0)
                 EndPanning();
         }
 
-        private void StartPanning(Point pixelLocation)
+        private void FloorPlanView_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            CancelPanning();
+        }
+
+        private void BeginPanning(Point pixelLocation)
         {
             mouseStart = pixelLocation;
             viewCenterStart = ViewCenter;
         }
 
-        private void ContinuePanning(MouseEventArgs e)
+        private void ContinuePanning(Point pixelLocation)
         {
             if (mouseStart.HasValue)
             {
-                var deltaX = e.X - mouseStart.Value.X;
-                var deltaY = e.Y - mouseStart.Value.Y;
-                ViewCenter = new PointF(viewCenterStart.Value.X + deltaX, viewCenterStart.Value.Y + deltaY);
+                var deltaX = pixelLocation.X - mouseStart.Value.X;
+                var deltaY = pixelLocation.Y - mouseStart.Value.Y;
+                ViewCenter = new PointF(
+                    viewCenterStart.Value.X - deltaX / Zoom,
+                    viewCenterStart.Value.Y - deltaY / Zoom
+                );
             }
         }
 

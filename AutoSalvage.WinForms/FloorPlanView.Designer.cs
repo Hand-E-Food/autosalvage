@@ -37,9 +37,11 @@
             this.BackColor = System.Drawing.Color.Black;
             this.DoubleBuffered = true;
             this.Name = "FloorPlanView";
+            this.MouseCaptureChanged += new System.EventHandler(this.FloorPlanView_MouseCaptureChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseDown);
             this.MouseEnter += new System.EventHandler(this.FloorPlanView_MouseEnter);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseMove);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseWheel);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FloorPlanView_MouseUp);
             this.ResumeLayout(false);
 
