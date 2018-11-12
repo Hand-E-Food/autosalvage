@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AutoSalvage.Interface
 {
-    public class OperatorDrone : Entity
+    public class Drone : Entity
     {
         protected Entities.Drone drone => (Entities.Drone)entity;
 
@@ -17,7 +17,7 @@ namespace AutoSalvage.Interface
         public int MaximumHealth => drone.MaximumHealth;
         public event EventHandler<ValueChangedEventArgs<int>> MaximumHealthChanged;
 
-        internal OperatorDrone(Entities.Drone drone) : base(drone)
+        internal Drone(Entities.Drone drone) : base(drone)
         {
             this.drone.Destroyed += (sender, e) => Destroyed?.Invoke(this, e);
             this.drone.HealthChanged += (sender, e) => HealthChanged?.Invoke(this, e);

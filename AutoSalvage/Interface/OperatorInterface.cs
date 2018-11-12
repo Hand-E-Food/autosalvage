@@ -9,10 +9,10 @@ namespace AutoSalvage.Interface
     public class OperatorInterface
     {
         /// <summary>
-        /// The <see cref="OperatorDrone"/>s under the operator's control.
+        /// The <see cref="Drone"/>s under the operator's control.
         /// </summary>
-        public IReadOnlyList<OperatorDrone> Drones { get; }
-        internal List<OperatorDrone> drones;
+        public IReadOnlyList<Drone> Drones { get; }
+        internal List<Drone> drones;
 
         /// <summary>
         /// The <see cref="FloorPlan"/> being explored.
@@ -23,11 +23,11 @@ namespace AutoSalvage.Interface
         /// Initialises a new instance of the <see cref="OperatorInterface"/> class.
         /// </summary>
         /// <param name="floorPlan">The <see cref="World.FloorPlan"/> to explore.</param>
-        /// <param name="drones">The <see cref="OperatorDrone"/>s under the operator's control.</param>
+        /// <param name="drones">The <see cref="Drone"/>s under the operator's control.</param>
         internal OperatorInterface(World.FloorPlan floorPlan, IEnumerable<Entities.Drone> drones)
         {
             FloorPlan = new FloorPlan(floorPlan);
-            this.drones = drones.Select(drone => new OperatorDrone(drone)).ToList();
+            this.drones = drones.Select(drone => new Drone(drone)).ToList();
             Drones = this.drones.AsReadOnly();
         }
     }

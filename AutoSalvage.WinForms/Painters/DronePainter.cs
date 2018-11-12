@@ -17,11 +17,11 @@ namespace AutoSalvage.WinForms.Painters
             Trimming = StringTrimming.Character,
         };
 
-        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(OperatorDrone) };
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Drone) };
 
         public void Paint(TransformedPaintingInfo info, object obj)
         {
-            var drone = (OperatorDrone)obj;
+            var drone = (Drone)obj;
             var bounds = info.Transform(drone.Bounds.ToRectangleF());
 
             Brush brush;

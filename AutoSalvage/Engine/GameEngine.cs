@@ -9,6 +9,8 @@ namespace AutoSalvage.Engine
 {
     public class GameEngine
     {
+        private static Rectangle Size1Rectangle = new Rectangle(0, 0, 1, 1);
+
         private readonly Random random;
 
         protected List<Entities.Drone> Drones { get; } = new List<Entities.Drone>();
@@ -20,7 +22,7 @@ namespace AutoSalvage.Engine
             Drones.Add(new Entities.Drone {
                 MaximumHealth = 100,
                 Health = 100,
-                Bounds = new Rectangle(0, 0, 1, 1),
+                Bounds = Size1Rectangle,
             });
         }
 
