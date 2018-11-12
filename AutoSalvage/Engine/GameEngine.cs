@@ -11,13 +11,13 @@ namespace AutoSalvage.Engine
     {
         private readonly Random random;
 
-        protected List<Drone> Drones { get; } = new List<Drone>();
+        protected List<Entities.Drone> Drones { get; } = new List<Entities.Drone>();
 
         public GameEngine(Random random)
         {
             this.random = random;
 
-            Drones.Add(new Drone {
+            Drones.Add(new Entities.Drone {
                 MaximumHealth = 100,
                 Health = 100,
                 Bounds = new Rectangle(0, 0, 1, 1),

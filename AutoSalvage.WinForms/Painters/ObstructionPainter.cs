@@ -1,4 +1,4 @@
-﻿using AutoSalvage.Entities;
+﻿using AutoSalvage.Interface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

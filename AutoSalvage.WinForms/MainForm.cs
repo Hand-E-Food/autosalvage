@@ -18,7 +18,7 @@ namespace AutoSalvage.WinForms
             var random = new Random();
             var engine = new GameEngine(random);
             var operatorInterface = engine.CreateNextFloorPlan();
-            var floorPlan = operatorInterface.FloorPlan.FloorPlan;
+            var floorPlan = operatorInterface.FloorPlan;
             floorPlanView.FloorPlan = floorPlan;
         }
     }

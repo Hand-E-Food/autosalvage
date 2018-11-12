@@ -1,4 +1,5 @@
-﻿using AutoSalvage.WinForms.Painters;
+﻿using AutoSalvage.Interface;
+using AutoSalvage.WinForms.Painters;
 using AutoSalvage.World;
 using System;
 using System.Collections;

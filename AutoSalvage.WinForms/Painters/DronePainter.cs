@@ -1,4 +1,4 @@
-﻿using AutoSalvage.Entities;
+﻿using AutoSalvage.Interface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,11 +17,11 @@ namespace AutoSalvage.WinForms.Painters
             Trimming = StringTrimming.Character,
         };
 
-        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(Drone) };
+        public IEnumerable<Type> SupportedTypes { get; } = new[] { typeof(OperatorDrone) };
 
         public void Paint(TransformedPaintingInfo info, object obj)
         {
-            var drone = (Drone)obj;
+            var drone = (OperatorDrone)obj;
             var bounds = info.Transform(drone.Bounds.ToRectangleF());
 
             Brush brush;

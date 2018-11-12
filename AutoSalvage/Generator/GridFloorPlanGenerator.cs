@@ -234,7 +234,7 @@ namespace AutoSalvage.Generator
 
         private Entity CreateNothingElse() => null;
 
-        private Entity CreateObstruction() => new Obstruction { Bounds = Size1Rectangle };
+        private Entity CreateObstruction() => new Obstruction { Bounds = RandomlySizedRectangle(2, 2) };
 
         private Entity CreateScrapPile() => new ScrapPile { Bounds = Size1Rectangle };
 
@@ -257,5 +257,7 @@ namespace AutoSalvage.Generator
                 MaximumHealth = 0,
             };
         }
+
+        private Rectangle RandomlySizedRectangle(int maxWidth, int maxHeight) => new Rectangle(0, 0, random.Next(0, maxWidth) + 1, random.Next(0, maxHeight) + 1);
     }
 }
