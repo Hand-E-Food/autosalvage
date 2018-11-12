@@ -5,7 +5,7 @@ namespace AutoSalvage.World
     /// <summary>
     /// One side of a <see cref="Door"/>, facing a <see cref="Room"/>.
     /// </summary>
-    public class DoorFace
+    internal class DoorFace
     {
         /// <summary>
         /// The <see cref="Door"/> this <see cref="DoorFace"/> is part of.

@@ -7,7 +7,7 @@ namespace AutoSalvage.World
     /// <summary>
     /// An entire network of <see cref="Room"/>s and <see cref="Door"/>s.
     /// </summary>
-    public class FloorPlan
+    internal class FloorPlan
     {
         /// <summary>
         /// This <see cref="FloorPlan"/>'s <see cref="Door"/>s.  The key is the <see cref="Door.Id"/> value.
@@ -29,7 +29,7 @@ namespace AutoSalvage.World
         public string Id { get; internal set; }
 
         /// <summary>
-        /// This <see cref="FloorPlan"/>'s <see cref="Room"/>s.  The key is the <see cref="Door.Id"/> value.
+        /// This <see cref="FloorPlan"/>'s <see cref="Room"/>s.  The key is the <see cref="Room.Id"/> value.
         /// </summary>
         public IReadOnlyDictionary<string, Room> Rooms { get; }
         internal Dictionary<string, Room> rooms = new Dictionary<string, Room>();

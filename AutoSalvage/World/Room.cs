@@ -7,7 +7,7 @@ namespace AutoSalvage.World
     /// <summary>
     /// A room.
     /// </summary>
-    public class Room
+    internal class Room
     {
         /// <summary>
         /// This <see cref="Room"/>'s location and size.  Location coordinates may be negative.

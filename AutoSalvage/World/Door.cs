@@ -7,7 +7,7 @@ namespace AutoSalvage.World
     /// <summary>
     /// A door between two rooms.
     /// </summary>
-    public class Door
+    internal class Door
     {
         /// <summary>
         /// This <see cref="Door"/>'s location and size.
